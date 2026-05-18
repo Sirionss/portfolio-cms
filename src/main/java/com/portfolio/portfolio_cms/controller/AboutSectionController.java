@@ -2,7 +2,6 @@ package com.portfolio.portfolio_cms.controller;
 
 import com.portfolio.portfolio_cms.model.AboutSection;
 import com.portfolio.portfolio_cms.service.AboutSectionService;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class AboutSectionController {
     private final AboutSectionService service;
 
-    AboutSectionController(AboutSectionService service) {
+    public AboutSectionController(AboutSectionService service) {
         this.service = service;
     }
     @GetMapping
@@ -30,6 +29,10 @@ public class AboutSectionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(aboutSection));
     }
     @PutMapping("/{id}")
+    public ResponseEntity<AboutSection> update(@PathVariable Long id, @RequestBody AboutSection updated){
+        return ResponseEntity.ok(service.update(id, updated));
+    }
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
