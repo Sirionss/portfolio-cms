@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
-        ErrorResponse ErrorResponse = new ErrorResponse(LocalDateTime.now(), 404, "Not Found", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse);
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(), 404, "Not Found", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneric(Exception ex){
-        ErrorResponse ErrorResponse = new ErrorResponse(LocalDateTime.now(), 500, "Internal Server Error", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponse);
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now(), 500, "Internal Server Error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 }
