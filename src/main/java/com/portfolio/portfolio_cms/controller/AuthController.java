@@ -2,8 +2,7 @@ package com.portfolio.portfolio_cms.controller;
 
 import com.portfolio.portfolio_cms.dto.AuthResponse;
 import com.portfolio.portfolio_cms.dto.LoginRequest;
-import com.portfolio.portfolio_cms.dto.RegisterRequest;
-import com.portfolio.portfolio_cms.model.Role;
+import com.portfolio.portfolio_cms.exception.ResourceNotFoundException;
 import com.portfolio.portfolio_cms.model.User;
 import com.portfolio.portfolio_cms.repository.UserRepository;
 import com.portfolio.portfolio_cms.security.JwtService;
@@ -12,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,11 +32,14 @@ public class AuthController {
         this.authenticationManager = authenticationManager;
 
     }
-
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
-        if (userRepository.existsByUsername(request.username())) {
-            return ResponseEntity.badRequest().build();
-        }
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+        String username = request.username();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + username));
+        String token = jwtService.generateToken(user);
+        return  ResponseEntity.ok(new AuthResponse(token));
     }
+
 }
