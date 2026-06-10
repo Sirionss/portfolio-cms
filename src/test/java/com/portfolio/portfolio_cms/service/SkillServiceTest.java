@@ -47,13 +47,8 @@ class SkillServiceTest {
 
     @Test
     void getAll_returnsListOfSkills() {
-
         when(skillRepository.findAll()).thenReturn(List.of(javaSkill, pythonSkill));
-
-
         List<Skill> result = skillService.getAll();
-
-
         assertThat(result).hasSize(2).containsExactly(javaSkill, pythonSkill);
         verify(skillRepository).findAll();
     }
@@ -61,8 +56,6 @@ class SkillServiceTest {
     @Test
     void getById_nonExistingId_throwsResourceNotFoundException() {
         when(skillRepository.findById(999L)).thenReturn(Optional.empty());
-
-
         assertThatThrownBy(() -> skillService.getById(999L))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessageContaining("Skill not found with id: 999");
