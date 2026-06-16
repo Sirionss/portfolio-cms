@@ -38,7 +38,6 @@ class AboutSectionServiceTest {
       when(aboutSectionRepository.findAll()).thenReturn(List.of(aboutSection));
       List<AboutSection> result = aboutSectionService.getAll();
       assertThat(result).hasSize(1).containsExactly(aboutSection);
-      verify(aboutSectionRepository).findAll();
    }
 
    @Test

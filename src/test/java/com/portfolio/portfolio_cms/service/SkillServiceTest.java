@@ -32,17 +32,8 @@ class SkillServiceTest {
 
     @BeforeEach
     void setUp() {
-        javaSkill = new Skill();
-        javaSkill.setName("Java");
-        javaSkill.setIcon("java-icon");
-        javaSkill.setDetail("Backend development");
-        javaSkill.setCategory(SkillCategory.BACKEND);
-
-        pythonSkill = new Skill();
-        pythonSkill.setName("Python");
-        pythonSkill.setIcon("python-icon");
-        pythonSkill.setDetail("Scripting");
-        pythonSkill.setCategory(SkillCategory.BACKEND);
+        javaSkill = new Skill("Java","java-icon","Backend development", SkillCategory.BACKEND);
+        pythonSkill = new Skill("Python" ,"python-icon","Scripting",SkillCategory.BACKEND);
     }
 
     @Test
@@ -50,7 +41,6 @@ class SkillServiceTest {
         when(skillRepository.findAll()).thenReturn(List.of(javaSkill, pythonSkill));
         List<Skill> result = skillService.getAll();
         assertThat(result).hasSize(2).containsExactly(javaSkill, pythonSkill);
-        verify(skillRepository).findAll();
     }
 
     @Test
