@@ -68,11 +68,7 @@ class SkillServiceTest {
     void update_existingId_updatesAllProvidedFields(){
         when(skillRepository.findById(1L)).thenReturn(Optional.of(javaSkill));
         when(skillRepository.save(any())).thenReturn(javaSkill);
-        Skill updateData = new Skill();
-        updateData.setName("Java 17");
-        updateData.setIcon("java-icon");
-        updateData.setDetail("Backend development");
-        updateData.setCategory(SkillCategory.BACKEND);
+        Skill updateData = new Skill("Java 17","java-icon","Backend development",SkillCategory.BACKEND);
         skillService.update(1L, updateData);
         assertThat(javaSkill.getName()).isEqualTo("Java 17");
         verify(skillRepository).save(javaSkill);
