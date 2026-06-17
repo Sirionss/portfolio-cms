@@ -4,7 +4,6 @@ package com.portfolio.portfolio_cms.service;
 import com.portfolio.portfolio_cms.exception.ResourceNotFoundException;
 import com.portfolio.portfolio_cms.model.ContactLink;
 import com.portfolio.portfolio_cms.repository.ContactLinkRepository;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -62,7 +61,6 @@ public class ContactLinkServiceTest {
     }
     @Test
     void update_existingId_updatesAllProvidedFields(){
-        String originalUrl = githubContactLink.getUrl();
         when(contactLinkRepository.findById(1L)).thenReturn(Optional.of(githubContactLink));
         when(contactLinkRepository.save(any())).thenReturn(githubContactLink);
         ContactLink updateData = new ContactLink("Github", "https://github.com/damian", "github-icon");
