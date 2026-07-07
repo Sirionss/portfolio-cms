@@ -44,7 +44,7 @@ public class ProjectServiceTest {
     void getAll_returnsListOfProjects() {
         when(projectRepository.findAll()).thenReturn(List.of(taskflowProject));
         List<Project> result = projectService.getAll();
-        assertThat(result).hasSize(2).containsExactly(taskflowProject);
+        assertThat(result).hasSize(1).containsExactly(taskflowProject);
     }
 
     @Test
