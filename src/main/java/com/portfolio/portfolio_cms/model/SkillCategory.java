@@ -5,5 +5,6 @@ public enum SkillCategory {
     FRONTEND,
     DATABASE,
     TOOLS,
-    LANGUAGES
+    LANGUAGES,
+    DATA_ML
 }
