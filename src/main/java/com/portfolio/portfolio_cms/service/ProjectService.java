@@ -3,6 +3,7 @@ package com.portfolio.portfolio_cms.service;
 import com.portfolio.portfolio_cms.exception.ResourceNotFoundException;
 import com.portfolio.portfolio_cms.model.Project;
 import com.portfolio.portfolio_cms.repository.ProjectRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class ProjectService {
     }
 
     public List<Project> getAll(){
-        return repository.findAll();
+        return repository.findAll(Sort.by("Id"));
     }
 
     public Project getById(Long id){

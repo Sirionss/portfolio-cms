@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import org.springframework.data.domain.Sort;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +42,7 @@ public class ProjectServiceTest {
 
     @Test
     void getAll_returnsListOfProjects() {
-        when(projectRepository.findAll()).thenReturn(List.of(taskflowProject));
+        when(projectRepository.findAll((any(Sort.class)))).thenReturn(List.of(taskflowProject));
         List<Project> result = projectService.getAll();
         assertThat(result).hasSize(1).containsExactly(taskflowProject);
     }
